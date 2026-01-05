@@ -1,0 +1,271 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    branch-eni-cooldown: "60"
+    enable-network-policy-controller: "false"
+    enable-windows-ipam: "false"
+    enable-windows-prefix-delegation: "false"
+    minimum-ip-target: "3"
+    warm-ip-target: "1"
+    warm-prefix-target: "0"
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2025-12-24T05:47:14Z"
+    labels:
+      app.kubernetes.io/instance: aws-vpc-cni
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: aws-node
+      app.kubernetes.io/version: v1.20.4
+      helm.sh/chart: aws-vpc-cni-1.20.4
+      k8s-app: aws-node
+    name: amazon-vpc-cni
+    namespace: kube-system
+    resourceVersion: "1308"
+    uid: b53ca15f-c941-4677-97ce-12b3e47d00bf
+- apiVersion: v1
+  data:
+    mapRoles: |
+      - rolearn: arn:aws:iam::859666865164:role/eksctl-eksdemo1-nodegroup-eksdemo1-NodeInstanceRole-TLZeNgb8hmDm
+        groups:
+        - system:bootstrappers
+        - system:nodes
+        username: system:node:{{EC2PrivateDNSName}}
+      - rolearn: arn:aws:iam::859666865164:role/ec2-intraction-eks
+        groups:
+        - system:masters
+        username: ec2-user
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2025-12-24T06:00:49Z"
+    name: aws-auth
+    namespace: kube-system
+    resourceVersion: "1920367"
+    uid: 559eb64c-dba7-46e0-90e8-7d53c7543eb0
+- apiVersion: v1
+  data:
+    Corefile: |
+      .:53 {
+          errors
+          health {
+              lameduck 5s
+            }
+          ready
+          kubernetes cluster.local in-addr.arpa ip6.arpa {
+            pods insecure
+            fallthrough in-addr.arpa ip6.arpa
+          }
+          prometheus :9153
+          forward . /etc/resolv.conf
+          cache 30
+          loop
+          reload
+          loadbalance
+      }
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2025-12-24T05:47:17Z"
+    labels:
+      eks.amazonaws.com/component: coredns
+      k8s-app: kube-dns
+    name: coredns
+    namespace: kube-system
+    resourceVersion: "1329"
+    uid: 208f5388-a804-432c-96e3-42cd3f00eadf
+- apiVersion: v1
+  data:
+    client-ca-file: |
+      -----BEGIN CERTIFICATE-----
+      MIIDBTCCAe2gAwIBAgIIU2yNHxaC/o0wDQYJKoZIhvcNAQELBQAwFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczAeFw0yNTEyMjQwNTM1MTFaFw0zNTEyMjIwNTQwMTFaMBUx
+      EzARBgNVBAMTCmt1YmVybmV0ZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+      AoIBAQDVFJvrvY4UAFi2gTJVnVdw2Ik8sP4fMJTpTmGu5JELc7S1XTyvIFdau83I
+      MmMyUS8veCblqfupLkrGeDTcJpyPOGvw2o2VYSfMbe7/nWxqTTtubv4hJj6PnRBN
+      LPeJ3sP5ir19QVPTdvcrNikODNVjUjbQ2XJ9OkiDXSg7pb4jbp7QO6q/enYEBIHL
+      yhXa7dVKCfuZrAtXbpoNL6BYMZUtZHvVIcS0jqOzVKFI7zyLqECqtPIg93o7EoQ6
+      n3UxnEPszkSHlUv4v6JS/ZA0JE46q75nPR04mbyfVPozRm7tfn2uF2PPeloBPZ5F
+      yBc+wYSS+ikteOoVPnOZxSHiIz2tAgMBAAGjWTBXMA4GA1UdDwEB/wQEAwICpDAP
+      BgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBQqArQ9iQyIZKUccJiAkABZoUvjfDAV
+      BgNVHREEDjAMggprdWJlcm5ldGVzMA0GCSqGSIb3DQEBCwUAA4IBAQAmSEIdTIft
+      +BGyGhPSzy5c5TK3v33yWy6GlELF2I84a4JfnkUHdxABxSqz1NDIlFepze0mzEth
+      hqYRNQ+pDnhmy+yQN4T6aRWMxNGcnlir/wkweG6Io5P3olUVN1GrTiGROKZm6Lnl
+      WKV3VPWMExBKNYdYB7ZQird01E8+5xjjxZTHyta1oif3hKTZWZdYPb0bwMSS8P7B
+      WIT+w9SkaQuBQzI96rYt04fXS/nAdnzoZjkl7NCEZqPzgunlypcPbnlca+V5Nbuf
+      OgHSw9PuRZVvMWduMngri9Iy1JhsnjzU2Yaq7aG1fKCZiZDeHjXySSqPtxM3ZBAC
+      /7fcmcRRLLpd
+      -----END CERTIFICATE-----
+      -----BEGIN CERTIFICATE-----
+      MIIDBTCCAe2gAwIBAgIIO5EJLFx6e1cwDQYJKoZIhvcNAQELBQAwFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczAeFw0yNTEyMjQwNTM5MzNaFw0zNTEyMjIwNTQ0MzNaMBUx
+      EzARBgNVBAMTCmt1YmVybmV0ZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+      AoIBAQCjhKI+ZXu29/Z9uUHDXs52aW5exSbteoJIUefe4lEzJEwbwEPlw0MxBt9K
+      oRj4K3eElRoZvhP4aY4Zj4rjs5QxizamcVL8BMON8VL1Ib1DKp2m9+IXvy/ROz5M
+      ym/0CHPGRcdqCsmAmSowNgSC3e7S9mN8qpfemK5plZbFgoDINPZ3YSZdCdl/XtxZ
+      VNmfnEJNrWQNj0UohG/IiVz/x7y7jEUHLgQ413/++fbhquWbwRBGIMEIwcVh9q9B
+      rOfV25GyZRoEs31JnrYwWvpf+/MqsjuGlTWkrrAxWtPB8x6eHNF911haoD3JEuwU
+      H1qmdRFCm29C9ruf4A+bVwrU7LfZAgMBAAGjWTBXMA4GA1UdDwEB/wQEAwICpDAP
+      BgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBRbl0wWbYFLzdzAc/4zw040G5/nEjAV
+      BgNVHREEDjAMggprdWJlcm5ldGVzMA0GCSqGSIb3DQEBCwUAA4IBAQCcYmZ3lr+g
+      NeUX2j5exYL1/qszBT0XuI9dcsec80/7vDrDVlZeENWRuagqgrBm/tn/uduPMfPN
+      CitfkKF0ZMndIztdNiih5yoKxP6wT9yXH3fK0T25RNP5wkcUKL9HucdE05D2giox
+      UMkg/ydnNdyymSMDJbvzxVIdVuiOoSIUYhLMzDfHB19ZgcsAtfmJIPE9zbJcR3RI
+      7eG/jCaw4ehLKRmzCqyoUxi+0qgpAcdi5DPrdHf7iHklziY/VhTn8GzHDgkaYPnq
+      FOx5eF57/rdXtmkHrFNPA5aKQcNgmpDq/dSMYC0wBp0ITiSFtadGbcX2DrIeaQDy
+      d4PSUoOAS6kp
+      -----END CERTIFICATE-----
+    requestheader-allowed-names: '["front-proxy-client"]'
+    requestheader-client-ca-file: |
+      -----BEGIN CERTIFICATE-----
+      MIIDETCCAfmgAwIBAgIIBLulo/+BNQ0wDQYJKoZIhvcNAQELBQAwGTEXMBUGA1UE
+      AxMOZnJvbnQtcHJveHktY2EwHhcNMjUxMjI0MDUzNTA5WhcNMzUxMjIyMDU0MDA5
+      WjAZMRcwFQYDVQQDEw5mcm9udC1wcm94eS1jYTCCASIwDQYJKoZIhvcNAQEBBQAD
+      ggEPADCCAQoCggEBALKvHFtETILXYRwzckKNwtRsEQ5zp8NYw3lUgvXHL3DiXQ8g
+      +LN8Uae3/9kuruQz/wmMsR0Ftqf9qoA39p5OkB3yoWKoteY5bVPDHEmyi3035EZM
+      XRJhHpe8pnOm/7SLAfhBChp0lsIYKnMja9McFvpJGQyO1fK78yvw5mRc5cqrTsNS
+      XfzLVWWO1NpaQxI2UbtoPKb3pnXcHpdQPwezbtVy+pQhlWi8trnPuxqVubCFK1LG
+      aWxOlDhqrx2J6OGSytLLi0mYdDOqq6r5ojKkAygNmwCpjny0RwBQORQXY/XErYZv
+      urfFxbdIy4FA5BP88EaDfFrVRqbE7VlSVndnjM0CAwEAAaNdMFswDgYDVR0PAQH/
+      BAQDAgKkMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFIPft1CkZyk5eH7ENrVR
+      ivnJHtKDMBkGA1UdEQQSMBCCDmZyb250LXByb3h5LWNhMA0GCSqGSIb3DQEBCwUA
+      A4IBAQAb1xKtuUNXdHIDNwxWFK0ly4HqLHExOEplcvtfUIGAvP5VcsuSsEjGDZMZ
+      Lh/Ktbp56aIOHXIWOxDt7j+X8ahzpXRBjgsJ0KMnJmx+H8fWBlNmbbbXyHLIBByF
+      RtEhqlWgIgzDrH15fyLJ3080lCwMLwcOFTWR0NiroKAedhSwtiLOf8zA8bycHE5y
+      64xQkcPmiO5xzDdMI6DK94XUDXq4Gliw9NltrbLJwMe4TSJsPHK6lKof5zgXDakA
+      RbP6FSSuRYKf73C0l8QbSMAVWlOOdcBA0PyEqA6NZCksl1qxAdHY+1OiyS3A6hzr
+      YxaOvCogqPs91UyBI9D1vnlfi2yd
+      -----END CERTIFICATE-----
+    requestheader-extra-headers-prefix: '["X-Remote-Extra-"]'
+    requestheader-group-headers: '["X-Remote-Group"]'
+    requestheader-username-headers: '["X-Remote-User"]'
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:34Z"
+    name: extension-apiserver-authentication
+    namespace: kube-system
+    resourceVersion: "943"
+    uid: 39fd3631-ff84-4c7a-8e65-f9d78b505bd2
+- apiVersion: v1
+  data:
+    since: "2025-12-24"
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:34Z"
+    name: kube-apiserver-legacy-service-account-token-tracking
+    namespace: kube-system
+    resourceVersion: "16"
+    uid: 5a526208-d23e-457d-ad18-6b793c02c189
+- apiVersion: v1
+  data:
+    kubeconfig: |-
+      kind: Config
+      apiVersion: v1
+      clusters:
+      - cluster:
+          certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          server: https://9feb85b64fa00eb3dd49a3d85cb82045.gr7.us-east-1.eks.amazonaws.com
+        name: default
+      contexts:
+      - context:
+          cluster: default
+          namespace: default
+          user: default
+        name: default
+      current-context: default
+      users:
+      - name: default
+        user:
+          tokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2025-12-24T05:47:15Z"
+    labels:
+      eks.amazonaws.com/component: kube-proxy
+      k8s-app: kube-proxy
+    name: kube-proxy
+    namespace: kube-system
+    resourceVersion: "1318"
+    uid: 0ac71d45-8687-422c-9f9a-8fa18bc1750e
+- apiVersion: v1
+  data:
+    config: |-
+      apiVersion: kubeproxy.config.k8s.io/v1alpha1
+      bindAddress: 0.0.0.0
+      clientConnection:
+        acceptContentTypes: ""
+        burst: 10
+        contentType: application/vnd.kubernetes.protobuf
+        kubeconfig: /var/lib/kube-proxy/kubeconfig
+        qps: 5
+      clusterCIDR: ""
+      configSyncPeriod: 15m0s
+      conntrack:
+        maxPerCore: 32768
+        min: 131072
+        tcpCloseWaitTimeout: 1h0m0s
+        tcpEstablishedTimeout: 24h0m0s
+      enableProfiling: false
+      healthzBindAddress: 0.0.0.0:10256
+      hostnameOverride: ""
+      iptables:
+        masqueradeAll: false
+        masqueradeBit: 14
+        minSyncPeriod: 0s
+        syncPeriod: 30s
+      ipvs:
+        excludeCIDRs: null
+        minSyncPeriod: 0s
+        scheduler: ""
+        syncPeriod: 30s
+      kind: KubeProxyConfiguration
+      metricsBindAddress: 0.0.0.0:10249
+      mode: "iptables"
+      nodePortAddresses: null
+      oomScoreAdj: -998
+      portRange: ""
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2025-12-24T05:47:15Z"
+    labels:
+      eks.amazonaws.com/component: kube-proxy
+      k8s-app: kube-proxy
+    name: kube-proxy-config
+    namespace: kube-system
+    resourceVersion: "1319"
+    uid: 2921fbb7-a0f6-4d37-8bc3-dfd63211baae
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIDBTCCAe2gAwIBAgIIJ5xPFJdwhCUwDQYJKoZIhvcNAQELBQAwFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczAeFw0yNTEyMjQwNTM1MDlaFw0zNTEyMjIwNTQwMDlaMBUx
+      EzARBgNVBAMTCmt1YmVybmV0ZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+      AoIBAQCvgesRZkZ8rEduxXpFVE3euk5OVX9Q04kt+1uNULXOvCNezTVBo2zv5sMJ
+      33QtVJ8M7HtPGRWHeQumpsh2YLlX+UU4pFB3DkTOjzm74J+jBwsbCyFeVykqFz0l
+      CrG1prX/T8bQeHzoMfsyOgefMfOIHKxG29CSDOu8qA1BUer1x6StdiMkVUCcdA4O
+      oIBqD4lwJclmES87CcxA74QyeUSmECcgMc0vevPfnftxd5P+Q7xk7VEQdDc8LA3l
+      mow76O9qPvpwFwZgJfF52I/uswQDcUucQSubr0GQBy2OVkx1Ltpgn/+MZZ+5f7rt
+      RV/dktTYNq5yZ4fp5T4VjF5Kh8ubAgMBAAGjWTBXMA4GA1UdDwEB/wQEAwICpDAP
+      BgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBQUv/vYvYtmSOikkFH+P1MB91HFsDAV
+      BgNVHREEDjAMggprdWJlcm5ldGVzMA0GCSqGSIb3DQEBCwUAA4IBAQAHRuB0/A//
+      Oux35ukE0pgQsMVd9P26i3vHQBBNCVtHjKwb8OdiW6/IF2hniB7sVnsjun/b6P2o
+      funE2iDxLLkcCsPw0hwoThMU9scDFH3N87Qt/FsHLR2hl35047YZOxAhte6ET6q0
+      3pjW9iVztGYtke9qPMzanXuq4jpuPIBXCGLueLEyPee1+w+MHa+6ufuO9EZ45auJ
+      LN71dSwZgY61/6cTPDFfm/Imj7/UZ8p9g0EdVI0TB+vdT1+OXx04m4Zc0vr30Peh
+      IAc3yJVqixfVbw1B2+1j1EPzWwZ2AN/04TU9jW0dg5o/+sAsA8iUA8T8Bf5d/BLK
+      eghQoFInrs9t
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubernetes.io/description: Contains a CA bundle that can be used to verify the
+        kube-apiserver when using internal endpoints such as the internal service
+        IP or kubernetes.default.svc. No other usage is guaranteed across distributions
+        of Kubernetes clusters.
+    creationTimestamp: "2025-12-24T05:40:48Z"
+    name: kube-root-ca.crt
+    namespace: kube-system
+    resourceVersion: "375"
+    uid: 2bf28fa1-e318-4782-9fa5-440a1b3f54b7
+kind: List
+metadata:
+  resourceVersion: ""
