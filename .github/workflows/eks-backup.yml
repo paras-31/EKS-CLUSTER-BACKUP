@@ -1,0 +1,82 @@
+name: EKS Cluster Backup
+
+on:  
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run on push to main branch (optional)
+  # push:
+  #   branches:
+  #     - main
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      id-token: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Configure AWS credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-session-name: GitHubActionsSession
+      
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig \
+            --name ${{ secrets.EKS_CLUSTER_NAME }} \
+            --region ${{ secrets.AWS_REGION }}
+      
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+      
+      - name: Install Helm (optional)
+        uses: azure/setup-helm@v3
+        with:
+          version: 'latest'
+      
+      - name: Run backup script
+        run: |
+          cd EKS-BACKUP
+          chmod +x backup-all-resources.sh
+          ./backup-all-resources.sh
+      
+      - name: Commit and push backup
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          
+          # Check if there are changes
+          if [[ -n $(git status -s) ]]; then
+            git add EKS-BACKUP/backup-*/
+            git commit -m "Automated EKS backup - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Backup committed and pushed successfully"
+          else
+            echo "ℹ️ No changes to commit"
+          fi
+      
+      - name: Upload backup as artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: eks-backup
+          path: EKS-BACKUP/backup-*/
+          retention-days: 30
+      
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Backup failed!"
+          echo "Check workflow logs for details"
