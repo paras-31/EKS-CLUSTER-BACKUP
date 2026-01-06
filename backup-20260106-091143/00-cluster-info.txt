@@ -1,0 +1,4 @@
+[0;32mKubernetes control plane[0m is running at [0;33mhttps://9FEB85B64FA00EB3DD49A3D85CB82045.gr7.us-east-1.eks.amazonaws.com[0m
+[0;32mCoreDNS[0m is running at [0;33mhttps://9FEB85B64FA00EB3DD49A3D85CB82045.gr7.us-east-1.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy[0m
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.

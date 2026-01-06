@@ -1,0 +1,1527 @@
+apiVersion: v1
+items:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"application-controller","app.kubernetes.io/name":"argocd-application-controller","app.kubernetes.io/part-of":"argocd"},"name":"argocd-application-controller"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"argocd-application-controller"},"subjects":[{"kind":"ServiceAccount","name":"argocd-application-controller","namespace":"argocd"}]}
+    creationTimestamp: "2026-01-03T07:53:32Z"
+    labels:
+      app.kubernetes.io/component: application-controller
+      app.kubernetes.io/name: argocd-application-controller
+      app.kubernetes.io/part-of: argocd
+    name: argocd-application-controller
+    resourceVersion: "2786783"
+    uid: eb27a9e5-10cd-4076-bd30-eb527f230bd2
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: argocd-application-controller
+  subjects:
+  - kind: ServiceAccount
+    name: argocd-application-controller
+    namespace: argocd
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"applicationset-controller","app.kubernetes.io/name":"argocd-applicationset-controller","app.kubernetes.io/part-of":"argocd"},"name":"argocd-applicationset-controller"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"argocd-applicationset-controller"},"subjects":[{"kind":"ServiceAccount","name":"argocd-applicationset-controller","namespace":"argocd"}]}
+    creationTimestamp: "2026-01-03T07:53:32Z"
+    labels:
+      app.kubernetes.io/component: applicationset-controller
+      app.kubernetes.io/name: argocd-applicationset-controller
+      app.kubernetes.io/part-of: argocd
+    name: argocd-applicationset-controller
+    resourceVersion: "2786784"
+    uid: a93bd0a1-5eac-4fba-9b2c-80ae8f3bad46
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: argocd-applicationset-controller
+  subjects:
+  - kind: ServiceAccount
+    name: argocd-applicationset-controller
+    namespace: argocd
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"server","app.kubernetes.io/name":"argocd-server","app.kubernetes.io/part-of":"argocd"},"name":"argocd-server"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"argocd-server"},"subjects":[{"kind":"ServiceAccount","name":"argocd-server","namespace":"argocd"}]}
+    creationTimestamp: "2026-01-03T07:53:32Z"
+    labels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/name: argocd-server
+      app.kubernetes.io/part-of: argocd
+    name: argocd-server
+    resourceVersion: "2786785"
+    uid: 2e7b8442-e663-4d89-939c-e57d9b01fb7f
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: argocd-server
+  subjects:
+  - kind: ServiceAccount
+    name: argocd-server
+    namespace: argocd
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: aws-load-balancer-controller
+      meta.helm.sh/release-namespace: kube-system
+    creationTimestamp: "2025-12-25T06:09:44Z"
+    labels:
+      app.kubernetes.io/instance: aws-load-balancer-controller
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: aws-load-balancer-controller
+      app.kubernetes.io/version: v2.17.0
+      helm.sh/chart: aws-load-balancer-controller-1.17.0
+    name: aws-load-balancer-controller-rolebinding
+    resourceVersion: "242306"
+    uid: a6d4a3a3-db4b-4f7b-a723-56e0e8bf8c79
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: aws-load-balancer-controller-role
+  subjects:
+  - kind: ServiceAccount
+    name: aws-load-balancer-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:47:14Z"
+    labels:
+      app.kubernetes.io/instance: aws-vpc-cni
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: aws-node
+      app.kubernetes.io/version: v1.20.4
+      helm.sh/chart: aws-vpc-cni-1.20.4
+      k8s-app: aws-node
+    name: aws-node
+    resourceVersion: "1310"
+    uid: 01313f7c-6b0d-4a86-9f78-cf3e7286d97f
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: aws-node
+  subjects:
+  - kind: ServiceAccount
+    name: aws-node
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: cluster-admin
+    resourceVersion: "134"
+    uid: 4ab8ca42-8436-4c59-958d-a035437021a0
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: cluster-admin
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:masters
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"eks:addon-cluster-admin"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"cluster-admin"},"subjects":[{"apiGroup":"rbac.authorization.k8s.io","kind":"User","name":"eks:addon-manager"}]}
+    creationTimestamp: "2025-12-24T05:40:40Z"
+    name: eks:addon-cluster-admin
+    resourceVersion: "261"
+    uid: 686f6d04-6c93-4812-b51b-1243eb3375c5
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: cluster-admin
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:addon-manager
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"eks:addon-manager"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"eks:addon-manager"},"subjects":[{"apiGroup":"rbac.authorization.k8s.io","kind":"User","name":"eks:addon-manager"}]}
+    creationTimestamp: "2025-12-24T05:40:40Z"
+    name: eks:addon-manager
+    resourceVersion: "260"
+    uid: 696cba86-d631-48ed-9e48-58dbae732b08
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:addon-manager
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:addon-manager
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:38Z"
+    name: eks:az-poller
+    resourceVersion: "216"
+    uid: b37dec66-41b0-4ec2-ac17-a7ea09a64e36
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:az-poller
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:az-poller
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:39Z"
+    name: eks:cloud-provider-extraction-migration
+    resourceVersion: "238"
+    uid: a1898d39-dfad-45c0-bcf4-8f8f8be6874c
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:cloud-provider-extraction-migration
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: system:kube-controller-manager
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:38Z"
+    name: eks:cluster-event-watcher
+    resourceVersion: "218"
+    uid: ff840ee9-de7b-4531-8a0d-da21ecc149ca
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:cluster-event-watcher
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:cluster-event-watcher
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:38Z"
+    name: eks:coredns-autoscaler
+    resourceVersion: "221"
+    uid: 26078464-49d9-44a4-932f-e84123328f7b
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:coredns-autoscaler
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:coredns-autoscaler
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"eks:fargate-manager"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"eks:fargate-manager"},"subjects":[{"apiGroup":"rbac.authorization.k8s.io","kind":"User","name":"eks:fargate-manager"}]}
+    creationTimestamp: "2025-12-24T05:40:40Z"
+    name: eks:fargate-manager
+    resourceVersion: "270"
+    uid: 1bed807b-9d51-4f21-9884-a5267d127db9
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:fargate-manager
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:fargate-manager
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:38Z"
+    name: eks:fargate-scheduler
+    resourceVersion: "225"
+    uid: 32167329-d841-41cc-b280-eca2b1a87c67
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:fargate-scheduler
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:fargate-scheduler
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:38Z"
+    name: eks:kms-storage-migrator
+    resourceVersion: "227"
+    uid: 09d5a196-5aae-4cca-8836-30ab701bec94
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:kms-storage-migrator
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:kms-storage-migrator
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:47:15Z"
+    labels:
+      eks.amazonaws.com/component: kube-proxy
+      k8s-app: kube-proxy
+    name: eks:kube-proxy
+    resourceVersion: "1320"
+    uid: 46ba1e8a-4544-486c-85dd-044e35127933
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:node-proxier
+  subjects:
+  - kind: ServiceAccount
+    name: kube-proxy
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"eks:kube-proxy-fargate"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"system:node-proxier"},"subjects":[{"apiGroup":"rbac.authorization.k8s.io","kind":"Group","name":"system:node-proxier"}]}
+    creationTimestamp: "2025-12-24T05:40:40Z"
+    name: eks:kube-proxy-fargate
+    resourceVersion: "269"
+    uid: 474b584d-c389-433c-a43c-b3efa68d7661
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:node-proxier
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:node-proxier
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"labels":{"eks.amazonaws.com/component":"kube-proxy","k8s-app":"kube-proxy"},"name":"eks:kube-proxy-windows"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"system:node-proxier"},"subjects":[{"kind":"Group","name":"eks:kube-proxy-windows"}]}
+    creationTimestamp: "2025-12-24T05:40:40Z"
+    labels:
+      eks.amazonaws.com/component: kube-proxy
+      k8s-app: kube-proxy
+    name: eks:kube-proxy-windows
+    resourceVersion: "266"
+    uid: f7a64a0f-114e-4024-a8fa-2d45f06fa4c9
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:node-proxier
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: eks:kube-proxy-windows
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"rbac","app.kubernetes.io/created-by":"amazon-network-policy-controller-k8s","app.kubernetes.io/instance":"manager-rolebinding","app.kubernetes.io/name":"amazon-network-policy-controller-k8s","app.kubernetes.io/part-of":"amazon-network-policy-controller-k8s"},"name":"eks:network-policy-controller"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"eks:network-policy-controller"},"subjects":[{"apiGroup":"rbac.authorization.k8s.io","kind":"User","name":"eks:network-policy-controller"}]}
+    creationTimestamp: "2025-12-24T05:40:41Z"
+    labels:
+      app.kubernetes.io/component: rbac
+      app.kubernetes.io/created-by: amazon-network-policy-controller-k8s
+      app.kubernetes.io/instance: manager-rolebinding
+      app.kubernetes.io/name: amazon-network-policy-controller-k8s
+      app.kubernetes.io/part-of: amazon-network-policy-controller-k8s
+    name: eks:network-policy-controller
+    resourceVersion: "294"
+    uid: e648645e-d698-4dff-a1bd-ea3245a647de
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:network-policy-controller
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:network-policy-controller
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:38Z"
+    name: eks:network-webhooks
+    resourceVersion: "229"
+    uid: 17f5acaa-835f-4814-87f8-e0e0f06cd2e7
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:network-webhooks
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:network-webhooks
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"labels":{"eks.amazonaws.com/component":"node"},"name":"eks:node-bootstrapper"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"eks:node-bootstrapper"},"subjects":[{"apiGroup":"rbac.authorization.k8s.io","kind":"Group","name":"system:bootstrappers"},{"apiGroup":"rbac.authorization.k8s.io","kind":"Group","name":"system:nodes"}]}
+    creationTimestamp: "2025-12-24T05:40:40Z"
+    labels:
+      eks.amazonaws.com/component: node
+    name: eks:node-bootstrapper
+    resourceVersion: "272"
+    uid: 63f2a9e3-eded-42f2-bd0e-34fe71464ba5
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:node-bootstrapper
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:bootstrappers
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:nodes
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:38Z"
+    name: eks:node-manager
+    resourceVersion: "212"
+    uid: f0339b92-d7d4-4ea4-8b88-355515e36363
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:node-manager
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:node-manager
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:39Z"
+    name: eks:nodewatcher
+    resourceVersion: "231"
+    uid: 4f8f4050-6abf-46a0-9215-7dd2a6bc736e
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:nodewatcher
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:nodewatcher
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:39Z"
+    name: eks:pod-identity-mutating-webhook
+    resourceVersion: "233"
+    uid: c909de49-4505-43e7-9dcb-c1eeaabebc85
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:pod-identity-mutating-webhook
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:pod-identity-mutating-webhook
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:39Z"
+    name: eks:service-operations
+    resourceVersion: "235"
+    uid: d8e4e24a-f6ab-47c8-afb8-aa8eb6d8a002
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:service-operations
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: eks:service-operations
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:40:39Z"
+    name: eks:tagging-controller
+    resourceVersion: "241"
+    uid: b57a13d3-32a6-4af4-bdd4-572e7eafd296
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: eks:tagging-controller
+  subjects:
+  - kind: ServiceAccount
+    name: tagging-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"grafana"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"grafana"},"subjects":[{"kind":"ServiceAccount","name":"grafana","namespace":"monitoring"}]}
+    creationTimestamp: "2025-12-31T07:32:40Z"
+    name: grafana
+    resourceVersion: "1940538"
+    uid: ca4016b8-a2cc-4634-8c61-949bfe659b9f
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: grafana
+  subjects:
+  - kind: ServiceAccount
+    name: grafana
+    namespace: monitoring
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: karpenter
+      meta.helm.sh/release-namespace: karpenter
+    creationTimestamp: "2026-01-03T17:10:13Z"
+    labels:
+      app.kubernetes.io/instance: karpenter
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: karpenter
+      app.kubernetes.io/version: 1.8.3
+      helm.sh/chart: karpenter-1.8.3
+    name: karpenter
+    resourceVersion: "2896740"
+    uid: d2d0b42b-e661-4005-b659-4e16bc24d2ea
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: karpenter
+  subjects:
+  - kind: ServiceAccount
+    name: karpenter
+    namespace: karpenter
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: karpenter
+      meta.helm.sh/release-namespace: karpenter
+    creationTimestamp: "2026-01-03T17:10:13Z"
+    labels:
+      app.kubernetes.io/instance: karpenter
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: karpenter
+      app.kubernetes.io/version: 1.8.3
+      helm.sh/chart: karpenter-1.8.3
+    name: karpenter-core
+    resourceVersion: "2896739"
+    uid: 79011620-199d-44fc-a37d-0a3728088ca1
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: karpenter-core
+  subjects:
+  - kind: ServiceAccount
+    name: karpenter
+    namespace: karpenter
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"kube-state-metrics"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"kube-state-metrics"},"subjects":[{"kind":"ServiceAccount","name":"kube-state-metrics","namespace":"monitoring"}]}
+    creationTimestamp: "2025-12-31T07:32:40Z"
+    name: kube-state-metrics
+    resourceVersion: "1940541"
+    uid: 5f2e02b1-9580-4688-8f82-60cbb8d68ca7
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: kube-state-metrics
+  subjects:
+  - kind: ServiceAccount
+    name: kube-state-metrics
+    namespace: monitoring
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:49:23Z"
+    labels:
+      app.kubernetes.io/instance: metrics-server
+      app.kubernetes.io/managed-by: EKS
+      app.kubernetes.io/name: metrics-server
+      app.kubernetes.io/version: 0.7.2
+    name: metrics-server:system:auth-delegator
+    resourceVersion: "1685"
+    uid: d0fe6ee9-6b4a-4138-a168-e2642065be44
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:auth-delegator
+  subjects:
+  - kind: ServiceAccount
+    name: metrics-server
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"node-exporter"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"node-exporter"},"subjects":[{"kind":"ServiceAccount","name":"node-exporter","namespace":"monitoring"}]}
+    creationTimestamp: "2025-12-31T08:09:20Z"
+    name: node-exporter
+    resourceVersion: "1947951"
+    uid: 75b4e30a-3b08-4a5c-bb20-8d04ceaed045
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: node-exporter
+  subjects:
+  - kind: ServiceAccount
+    name: node-exporter
+    namespace: monitoring
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"prometheus"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"prometheus"},"subjects":[{"kind":"ServiceAccount","name":"prometheus","namespace":"monitoring"}]}
+    creationTimestamp: "2025-12-31T07:32:41Z"
+    name: prometheus
+    resourceVersion: "1940549"
+    uid: 19b05080-767b-46bf-9052-5ab8b7cdc05a
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: prometheus
+  subjects:
+  - kind: ServiceAccount
+    name: prometheus
+    namespace: monitoring
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:basic-user
+    resourceVersion: "137"
+    uid: 6a233d4f-bed6-44f4-ac19-9a494d9902ae
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:basic-user
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:authenticated
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:attachdetach-controller
+    resourceVersion: "146"
+    uid: 394966c2-f070-4495-84a9-16866795d504
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:attachdetach-controller
+  subjects:
+  - kind: ServiceAccount
+    name: attachdetach-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:certificate-controller
+    resourceVersion: "172"
+    uid: 32d8a20b-1c6a-4a0c-aa03-4bca536dad66
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:certificate-controller
+  subjects:
+  - kind: ServiceAccount
+    name: certificate-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:clusterrole-aggregation-controller
+    resourceVersion: "147"
+    uid: 484a0494-d8d2-42eb-95d1-db57729aa948
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:clusterrole-aggregation-controller
+  subjects:
+  - kind: ServiceAccount
+    name: clusterrole-aggregation-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:cronjob-controller
+    resourceVersion: "148"
+    uid: 5b658937-cd67-4550-98f1-abfa8efb121a
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:cronjob-controller
+  subjects:
+  - kind: ServiceAccount
+    name: cronjob-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:daemon-set-controller
+    resourceVersion: "149"
+    uid: bf923751-2271-490f-b50f-9412c8bbd41c
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:daemon-set-controller
+  subjects:
+  - kind: ServiceAccount
+    name: daemon-set-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:deployment-controller
+    resourceVersion: "150"
+    uid: 727a9959-cd3c-43c4-8043-1f5fec73f0f7
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:deployment-controller
+  subjects:
+  - kind: ServiceAccount
+    name: deployment-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:disruption-controller
+    resourceVersion: "151"
+    uid: 2434e108-25ae-4b8b-9208-ff491d8c0652
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:disruption-controller
+  subjects:
+  - kind: ServiceAccount
+    name: disruption-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:endpoint-controller
+    resourceVersion: "152"
+    uid: 6c683d5e-a455-41b6-af12-3657e5a16e52
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:endpoint-controller
+  subjects:
+  - kind: ServiceAccount
+    name: endpoint-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:endpointslice-controller
+    resourceVersion: "153"
+    uid: fb7677cf-c0ad-4ead-870c-5b373abc8146
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:endpointslice-controller
+  subjects:
+  - kind: ServiceAccount
+    name: endpointslice-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:endpointslicemirroring-controller
+    resourceVersion: "154"
+    uid: 093e096c-fc07-47b4-8a6f-58205bed63cd
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:endpointslicemirroring-controller
+  subjects:
+  - kind: ServiceAccount
+    name: endpointslicemirroring-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:ephemeral-volume-controller
+    resourceVersion: "156"
+    uid: a7c19ef1-4b28-4e68-acca-f37885220fda
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:ephemeral-volume-controller
+  subjects:
+  - kind: ServiceAccount
+    name: ephemeral-volume-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:expand-controller
+    resourceVersion: "155"
+    uid: 9367986f-2565-4364-ac6f-ea464962370b
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:expand-controller
+  subjects:
+  - kind: ServiceAccount
+    name: expand-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:generic-garbage-collector
+    resourceVersion: "157"
+    uid: faa4224f-4b4a-4a32-ba75-09a5e8fe00f0
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:generic-garbage-collector
+  subjects:
+  - kind: ServiceAccount
+    name: generic-garbage-collector
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:horizontal-pod-autoscaler
+    resourceVersion: "158"
+    uid: 978fdc28-f6db-4e5e-9774-32faac794269
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:horizontal-pod-autoscaler
+  subjects:
+  - kind: ServiceAccount
+    name: horizontal-pod-autoscaler
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:job-controller
+    resourceVersion: "159"
+    uid: eb3141e3-bc8e-458f-a097-7d472ef3a4ee
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:job-controller
+  subjects:
+  - kind: ServiceAccount
+    name: job-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:legacy-service-account-token-cleaner
+    resourceVersion: "179"
+    uid: 4f49b2e7-cda9-4447-bd9b-e0aff5b4b58d
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:legacy-service-account-token-cleaner
+  subjects:
+  - kind: ServiceAccount
+    name: legacy-service-account-token-cleaner
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:namespace-controller
+    resourceVersion: "160"
+    uid: e2a0fb23-6f6d-442b-88b6-aecdc5d1c92e
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:namespace-controller
+  subjects:
+  - kind: ServiceAccount
+    name: namespace-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:node-controller
+    resourceVersion: "161"
+    uid: 6094d66e-0c9b-48e6-b303-5315c2515613
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:node-controller
+  subjects:
+  - kind: ServiceAccount
+    name: node-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:persistent-volume-binder
+    resourceVersion: "162"
+    uid: 6556f835-d610-416a-bebd-ccc47a3717b6
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:persistent-volume-binder
+  subjects:
+  - kind: ServiceAccount
+    name: persistent-volume-binder
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:pod-garbage-collector
+    resourceVersion: "163"
+    uid: ce748555-5a88-407b-8deb-b50994b86018
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:pod-garbage-collector
+  subjects:
+  - kind: ServiceAccount
+    name: pod-garbage-collector
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:pv-protection-controller
+    resourceVersion: "174"
+    uid: bff8d38c-4e30-4a43-b6bf-8601e760e5fb
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:pv-protection-controller
+  subjects:
+  - kind: ServiceAccount
+    name: pv-protection-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:pvc-protection-controller
+    resourceVersion: "173"
+    uid: 3a49d854-cf04-4b15-9803-e1007ea096d2
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:pvc-protection-controller
+  subjects:
+  - kind: ServiceAccount
+    name: pvc-protection-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:replicaset-controller
+    resourceVersion: "164"
+    uid: 4788f3ca-2b64-431d-84fb-7d64cf4fc469
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:replicaset-controller
+  subjects:
+  - kind: ServiceAccount
+    name: replicaset-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:replication-controller
+    resourceVersion: "165"
+    uid: 514bc056-2636-470e-a96d-06e12376a2f5
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:replication-controller
+  subjects:
+  - kind: ServiceAccount
+    name: replication-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:resourcequota-controller
+    resourceVersion: "166"
+    uid: 11f0020f-e8ae-4abc-8634-b5c0600ea10a
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:resourcequota-controller
+  subjects:
+  - kind: ServiceAccount
+    name: resourcequota-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:root-ca-cert-publisher
+    resourceVersion: "177"
+    uid: a42e37a9-168d-4a3c-b3a9-15870c5cd7a9
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:root-ca-cert-publisher
+  subjects:
+  - kind: ServiceAccount
+    name: root-ca-cert-publisher
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:route-controller
+    resourceVersion: "167"
+    uid: a6cd46ed-79f0-4503-bef4-fc3a9d97a55e
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:route-controller
+  subjects:
+  - kind: ServiceAccount
+    name: route-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:service-account-controller
+    resourceVersion: "168"
+    uid: 902a1f1c-9213-4eef-9e06-b868e29d750d
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:service-account-controller
+  subjects:
+  - kind: ServiceAccount
+    name: service-account-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:service-controller
+    resourceVersion: "169"
+    uid: 8ae4cd56-5f2b-4e0d-b224-2b4107111086
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:service-controller
+  subjects:
+  - kind: ServiceAccount
+    name: service-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:statefulset-controller
+    resourceVersion: "170"
+    uid: 8aaa2895-f51b-44f1-b631-da8671e41424
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:statefulset-controller
+  subjects:
+  - kind: ServiceAccount
+    name: statefulset-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:ttl-after-finished-controller
+    resourceVersion: "176"
+    uid: f01385a4-1f6d-41ad-9409-df4df8bda918
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:ttl-after-finished-controller
+  subjects:
+  - kind: ServiceAccount
+    name: ttl-after-finished-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:ttl-controller
+    resourceVersion: "171"
+    uid: 7ffc18dd-d8f5-4296-aaaf-acc93f699f71
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:ttl-controller
+  subjects:
+  - kind: ServiceAccount
+    name: ttl-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:validatingadmissionpolicy-status-controller
+    resourceVersion: "178"
+    uid: 3b07a96d-9369-483b-a9b7-be513c46768a
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:validatingadmissionpolicy-status-controller
+  subjects:
+  - kind: ServiceAccount
+    name: validatingadmissionpolicy-status-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:37Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:volumeattributesclass-protection-controller
+    resourceVersion: "175"
+    uid: e3a93106-063e-4a4b-82db-2062e73f5937
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:controller:volumeattributesclass-protection-controller
+  subjects:
+  - kind: ServiceAccount
+    name: volumeattributesclass-protection-controller
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:47:17Z"
+    labels:
+      eks.amazonaws.com/component: coredns
+      k8s-app: kube-dns
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:coredns
+    resourceVersion: "1333"
+    uid: 22650d74-81d5-4a96-8bf2-ecff575b8550
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:coredns
+  subjects:
+  - kind: ServiceAccount
+    name: coredns
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:discovery
+    resourceVersion: "136"
+    uid: b5de7607-24bf-4e7f-bc7f-63cc9b7865df
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:discovery
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:authenticated
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:kube-controller-manager
+    resourceVersion: "140"
+    uid: 861a74ec-8a71-4df9-9daf-6495951f65a3
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:kube-controller-manager
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: system:kube-controller-manager
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:kube-dns
+    resourceVersion: "141"
+    uid: 35b7aac5-4d79-4f1e-961d-4a52461bf647
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:kube-dns
+  subjects:
+  - kind: ServiceAccount
+    name: kube-dns
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:kube-scheduler
+    resourceVersion: "142"
+    uid: 65c11caf-23e6-4800-a3cd-7ce6a03b10b5
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:kube-scheduler
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: system:kube-scheduler
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: "2025-12-24T05:49:23Z"
+    labels:
+      app.kubernetes.io/instance: metrics-server
+      app.kubernetes.io/managed-by: EKS
+      app.kubernetes.io/name: metrics-server
+      app.kubernetes.io/version: 0.7.2
+    name: system:metrics-server
+    resourceVersion: "1686"
+    uid: 6f5a9368-29af-439b-bc0b-e03d530cf7f7
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:metrics-server
+  subjects:
+  - kind: ServiceAccount
+    name: metrics-server
+    namespace: kube-system
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:monitoring
+    resourceVersion: "135"
+    uid: 7b944a43-343a-4acc-8ff5-de59f29bf588
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:monitoring
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:monitoring
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:node
+    resourceVersion: "144"
+    uid: dd2d140a-f231-40d3-a205-607f4722ebd2
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:node
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:node-proxier
+    resourceVersion: "139"
+    uid: e3e29049-c183-4aae-a78f-907af4b44235
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:node-proxier
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: system:kube-proxy
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:public-info-viewer
+    resourceVersion: "138"
+    uid: 32b6f9ec-c184-4c34-86cc-469e20b44caa
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:public-info-viewer
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:authenticated
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:unauthenticated
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:service-account-issuer-discovery
+    resourceVersion: "145"
+    uid: d3223c59-616b-4fa0-b5e5-10caba85d49d
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:service-account-issuer-discovery
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:serviceaccounts
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2025-12-24T05:40:36Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:volume-scheduler
+    resourceVersion: "143"
+    uid: ce92693f-db27-492f-a982-6f4c6d299c3f
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:volume-scheduler
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: system:kube-scheduler
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"vpc-resource-controller-rolebinding"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"vpc-resource-controller-role"},"subjects":[{"apiGroup":"rbac.authorization.k8s.io","kind":"User","name":"eks:vpc-resource-controller"}]}
+    creationTimestamp: "2025-12-24T05:40:41Z"
+    name: vpc-resource-controller-rolebinding
+    resourceVersion: "304"
+    uid: 8cf59937-8c12-4cab-b390-1d8a2934241d
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: vpc-resource-controller-role
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: eks:vpc-resource-controller
+kind: List
+metadata:
+  resourceVersion: ""
