@@ -11,7 +11,7 @@ on:
 permissions:
     id-token: write
     contents: read
-    
+
 jobs:
   backup:
     runs-on: ubuntu-latest
@@ -22,18 +22,19 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Configure AWS credentials with OIDC
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::859666865164:role/github-action-role
+          role-session-name: "samplerolesession"
           aws-region: us-east-1
-          role-session-name: GitHubActionsSession
+
       
       - name: Update kubeconfig
         run: |
           aws eks update-kubeconfig \
-            --name ${{ secrets.EKS_CLUSTER_NAME }} \
-            --region ${{ secrets.AWS_REGION }}
+            --name eksdemo1 \
+            --region us-east-1
       
       - name: Install kubectl
         uses: azure/setup-kubectl@v3
