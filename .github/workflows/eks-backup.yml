@@ -9,8 +9,8 @@ on:
   #   branches:
   #     - main
 permissions:
-    id-token: write
-    contents: read
+  id-token: write
+  contents: write
 
 jobs:
   backup:
@@ -55,24 +55,35 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          
-          # Check if there are changes
-          if [[ -n $(git status -s) ]]; then
-            git add EKS-BACKUP/backup-*/
-            git commit -m "Automated EKS backup - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-            git push
-            echo "✅ Backup committed and pushed successfully"
-          else
-            echo "ℹ️ No changes to commit"
+
+          shopt -s nullglob
+          backup_dirs=(backup-*/)
+
+          if (( ${#backup_dirs[@]} == 0 )); then
+            echo "ℹ️ No backup-* directories found to commit"
+            exit 0
           fi
+
+          git add "${backup_dirs[@]}"
+
+          # Commit only if index has changes
+          if git diff --cached --quiet; then
+            echo "ℹ️ No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "Automated EKS backup - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push
+          echo "✅ Backup committed and pushed successfully"
       
       - name: Upload backup as artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: eks-backup
-          path: EKS-BACKUP/backup-*/
+          path: backup-*/
           retention-days: 30
+          if-no-files-found: warn
       
       - name: Notify on failure
         if: failure()
