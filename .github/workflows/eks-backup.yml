@@ -8,14 +8,13 @@ on:
   # push:
   #   branches:
   #     - main
-
+permissions:
+    id-token: write
+    contents: read
+    
 jobs:
   backup:
     runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-      id-token: write
       
     steps:
       - name: Checkout repository
@@ -24,7 +23,7 @@ jobs:
           fetch-depth: 0
       
       - name: Configure AWS credentials with OIDC
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::859666865164:role/github-action-role
           aws-region: us-east-1
