@@ -48,7 +48,7 @@ jobs:
       
       - name: Run backup script
         run: |
-          cd EKS-BACKUP
+          cd EKS-CLUSTER-BACKUP
           chmod +x backup-all-resources.sh
           ./backup-all-resources.sh
       
