@@ -3,6 +3,11 @@ name: EKS Cluster Restore (from backup folder)
 on:
   workflow_dispatch:
     inputs:
+      role_to_assume:
+        description: "IAM Role ARN to assume from GitHub Actions (must have EKS permissions)"
+        required: true
+        default: "arn:aws:iam::000087384605:role/githubworkflowrole"
+        type: string
       cluster_name:
         description: "Name of the NEW (or existing) EKS cluster to restore into"
         required: true
@@ -37,6 +42,11 @@ on:
         required: false
         default: ""
         type: string
+      bootstrap_access:
+        description: "Ensure this role has EKS cluster admin access (via EKS access entries). Turn off if you manage access separately."
+        required: true
+        default: true
+        type: boolean
 
 permissions:
   id-token: write
@@ -55,7 +65,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::000087384605:role/githubworkflowrole
+          role-to-assume: ${{ inputs.role_to_assume }}
           role-session-name: "eks-restore-session"
           aws-region: ${{ inputs.aws_region }}
 
@@ -107,9 +117,65 @@ jobs:
           AWS_REGION: ${{ inputs.aws_region }}
         run: |
           set -euo pipefail
+          aws --version
+          aws sts get-caller-identity
           aws eks update-kubeconfig --name "${CLUSTER_NAME}" --region "${AWS_REGION}"
           kubectl version --client
-          kubectl cluster-info
+
+      - name: Ensure EKS access for assumed role (recommended)
+        if: ${{ inputs.bootstrap_access }}
+        env:
+          CLUSTER_NAME: ${{ inputs.cluster_name }}
+          AWS_REGION: ${{ inputs.aws_region }}
+          PRINCIPAL_ARN: ${{ inputs.role_to_assume }}
+        run: |
+          set -euo pipefail
+
+          POLICY_ARN="arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+          echo "Ensuring EKS access entry for: ${PRINCIPAL_ARN}"
+
+          # Create access entry if missing
+          if aws eks list-access-entries --cluster-name "${CLUSTER_NAME}" --region "${AWS_REGION}" --output text | grep -Fq "${PRINCIPAL_ARN}"; then
+            echo "ℹ️ Access entry already exists."
+          else
+            aws eks create-access-entry \
+              --cluster-name "${CLUSTER_NAME}" \
+              --region "${AWS_REGION}" \
+              --principal-arn "${PRINCIPAL_ARN}"
+            echo "✅ Access entry created."
+          fi
+
+          # Associate cluster admin policy if not already associated
+          existing_policy="$(aws eks list-associated-access-policies \
+            --cluster-name "${CLUSTER_NAME}" \
+            --region "${AWS_REGION}" \
+            --principal-arn "${PRINCIPAL_ARN}" \
+            --query "associatedAccessPolicies[?policyArn=='${POLICY_ARN}'].policyArn" \
+            --output text || true)"
+
+          if [[ -n "${existing_policy}" ]]; then
+            echo "ℹ️ ${POLICY_ARN} already associated."
+          else
+            aws eks associate-access-policy \
+              --cluster-name "${CLUSTER_NAME}" \
+              --region "${AWS_REGION}" \
+              --principal-arn "${PRINCIPAL_ARN}" \
+              --policy-arn "${POLICY_ARN}" \
+              --access-scope type=cluster
+            echo "✅ Cluster admin policy associated."
+          fi
+
+      - name: Verify Kubernetes access
+        env:
+          CLUSTER_NAME: ${{ inputs.cluster_name }}
+          AWS_REGION: ${{ inputs.aws_region }}
+        run: |
+          set -euo pipefail
+          # Validate token generation (doesn't require kubectl)
+          aws eks get-token --cluster-name "${CLUSTER_NAME}" --region "${AWS_REGION}" >/dev/null
+          # Validate kubectl auth
+          kubectl get namespaces
 
       - name: Restore from backup folder
         env:
