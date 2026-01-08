@@ -1,0 +1,214 @@
+name: EKS Cluster Restore (from backup folder)
+
+on:
+  workflow_dispatch:
+    inputs:
+      cluster_name:
+        description: "Name of the NEW (or existing) EKS cluster to restore into"
+        required: true
+        type: string
+      aws_region:
+        description: "AWS region"
+        required: true
+        default: "us-east-1"
+        type: string
+      create_cluster:
+        description: "Create the EKS cluster if it does not already exist"
+        required: true
+        default: true
+        type: boolean
+      kubernetes_version:
+        description: "EKS Kubernetes version (only used when creating the cluster)"
+        required: false
+        default: "1.29"
+        type: string
+      node_type:
+        description: "Node instance type (only used when creating the cluster)"
+        required: false
+        default: "t3.medium"
+        type: string
+      nodes:
+        description: "Number of nodes (only used when creating the cluster)"
+        required: false
+        default: "2"
+        type: string
+      backup_dir:
+        description: "Backup folder to restore (e.g., backup-20260106-091143). Leave empty to use the latest backup-* folder."
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::859666865164:role/github-action-role
+          role-session-name: "eks-restore-session"
+          aws-region: ${{ inputs.aws_region }}
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Install eksctl (only if cluster creation is enabled)
+        if: ${{ inputs.create_cluster }}
+        run: |
+          set -euo pipefail
+          ARCH=amd64
+          PLATFORM="$(uname -s)_${ARCH}"
+          curl -sSLo eksctl.tar.gz "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_${PLATFORM}.tar.gz"
+          sudo tar -xzf eksctl.tar.gz -C /usr/local/bin
+          eksctl version
+
+      - name: Create cluster if needed
+        if: ${{ inputs.create_cluster }}
+        env:
+          CLUSTER_NAME: ${{ inputs.cluster_name }}
+          AWS_REGION: ${{ inputs.aws_region }}
+          K8S_VERSION: ${{ inputs.kubernetes_version }}
+          NODE_TYPE: ${{ inputs.node_type }}
+          NODES: ${{ inputs.nodes }}
+        run: |
+          set -euo pipefail
+
+          echo "Checking if cluster already exists: ${CLUSTER_NAME} (${AWS_REGION})"
+          if aws eks describe-cluster --name "${CLUSTER_NAME}" --region "${AWS_REGION}" >/dev/null 2>&1; then
+            echo "ℹ️ Cluster already exists; skipping creation."
+            exit 0
+          fi
+
+          echo "Creating EKS cluster: ${CLUSTER_NAME}"
+          eksctl create cluster \
+            --name "${CLUSTER_NAME}" \
+            --region "${AWS_REGION}" \
+            --managed \
+            --nodes "${NODES}" \
+            --node-type "${NODE_TYPE}" \
+            --version "${K8S_VERSION}" \
+            --with-oidc
+
+      - name: Update kubeconfig
+        env:
+          CLUSTER_NAME: ${{ inputs.cluster_name }}
+          AWS_REGION: ${{ inputs.aws_region }}
+        run: |
+          set -euo pipefail
+          aws eks update-kubeconfig --name "${CLUSTER_NAME}" --region "${AWS_REGION}"
+          kubectl version --client
+          kubectl cluster-info
+
+      - name: Restore from backup folder
+        env:
+          BACKUP_DIR_INPUT: ${{ inputs.backup_dir }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "${BACKUP_DIR_INPUT}" ]]; then
+            backup_dir="${BACKUP_DIR_INPUT}"
+          else
+            # Pick the latest backup-* folder by name sort (timestamped)
+            latest="$(ls -d backup-*/ 2>/dev/null | sed 's:/$::' | sort | tail -n 1 || true)"
+            if [[ -z "${latest}" ]]; then
+              echo "❌ No backup-* directories found in the repo root."
+              exit 1
+            fi
+            backup_dir="${latest}"
+          fi
+
+          if [[ ! -d "${backup_dir}" ]]; then
+            echo "❌ Backup directory not found: ${backup_dir}"
+            echo "Available backup directories:"
+            ls -d backup-*/ 2>/dev/null || true
+            exit 1
+          fi
+
+          echo "Restoring from: ${backup_dir}"
+
+          failures=0
+          apply_file() {
+            local path="$1"
+            if [[ -f "${path}" ]]; then
+              echo "Applying: ${path}"
+              if ! kubectl apply --validate=false -f "${path}"; then
+                echo "⚠️ Apply failed: ${path}"
+                failures=$((failures+1))
+              fi
+            fi
+          }
+
+          apply_dir() {
+            local dir="$1"
+            if [[ -d "${dir}" ]]; then
+              echo "Applying directory: ${dir}"
+              if ! kubectl apply --validate=false -f "${dir}"; then
+                echo "⚠️ Apply failed: ${dir}"
+                failures=$((failures+1))
+              fi
+            fi
+          }
+
+          # 1) Cluster-wide resources first (RBAC, storage classes, PVs)
+          apply_dir "${backup_dir}/cluster-wide"
+
+          # 2) Namespaces
+          apply_file "${backup_dir}/02-namespaces.yaml"
+
+          # 3) Namespaced resources: apply in an order that tends to reduce failures
+          #    Only consider folders that look like namespace backups (contain 00-all-resources.yaml)
+          for ns_dir in "${backup_dir}"/*/; do
+            ns_dir="${ns_dir%/}"
+            ns_name="$(basename "${ns_dir}")"
+
+            # Skip non-namespace folders
+            if [[ "${ns_name}" == "cluster-wide" || "${ns_name}" == "helm" ]]; then
+              continue
+            fi
+            if [[ ! -f "${ns_dir}/00-all-resources.yaml" ]]; then
+              continue
+            fi
+
+            echo "---"
+            echo "Restoring namespace folder: ${ns_name}"
+
+            apply_file "${ns_dir}/12-serviceaccounts.yaml"
+            apply_file "${ns_dir}/09-roles.yaml"
+            apply_file "${ns_dir}/08-rolebindings.yaml"
+
+            apply_file "${ns_dir}/01-configmaps.yaml"
+            apply_file "${ns_dir}/02-secrets.yaml"
+            apply_file "${ns_dir}/03-pvc.yaml"
+
+            apply_file "${ns_dir}/05-services.yaml"
+            apply_file "${ns_dir}/06-ingress.yaml"
+            apply_file "${ns_dir}/07-networkpolicy.yaml"
+
+            # Deployments/StatefulSets/etc.
+            apply_file "${ns_dir}/00-all-resources.yaml"
+          done
+
+          if (( failures > 0 )); then
+            echo "❌ Restore completed with ${failures} apply failures. Check logs above."
+            exit 1
+          fi
+
+          echo "✅ Restore completed successfully."
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Restore failed!"
+          echo "Check workflow logs for details"
